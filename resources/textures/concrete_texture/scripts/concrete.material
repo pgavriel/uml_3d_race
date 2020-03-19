@@ -1,0 +1,108 @@
+material Concrete/1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/concrete.jpg
+        // Repeat the texture over the surface (4 per face)
+        scale 0.1 0.1
+      }
+    }
+  }
+}
+material Concrete/2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/concrete.jpg
+        // Repeat the texture over the surface (4 per face)
+        scale 0.2 0.2
+      }
+    }
+  }
+}
+material Concrete/3
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/concrete.jpg
+        // Repeat the texture over the surface (4 per face)
+        scale 0.4 0.4
+      }
+    }
+  }
+}
+material Concrete/4
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/concrete.jpg
+        // Repeat the texture over the surface (4 per face)
+        scale 0.6 0.6
+      }
+    }
+  }
+}
+material Concrete/5
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/concrete.jpg
+        // Repeat the texture over the surface (4 per face)
+        scale 1.0 1.0
+      }
+    }
+  }
+}
+material Concrete/6
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/concrete.jpg
+        // Repeat the texture over the surface (4 per face)
+        scale 2.0 2.0
+      }
+    }
+  }
+}

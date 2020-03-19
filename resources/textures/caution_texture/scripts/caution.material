@@ -1,0 +1,126 @@
+material Caution/Red
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/redcaution.png
+        // Repeat the texture over the surface (4 per face)
+        scale 2.0 2.0
+      }
+    }
+  }
+}
+material Caution/Yellow
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/caution.png
+        // Repeat the texture over the surface (4 per face)
+        scale 2.0 1.0
+      }
+    }
+  }
+}
+material Caution/White
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/whitecaution.png
+        // Repeat the texture over the surface (4 per face)
+        scale 1.0 2.0
+      }
+    }
+  }
+}
+material Caution/Orange1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/orangecaution.png
+        // Repeat the texture over the surface (4 per face)
+        scale 1.0 1.0
+      }
+    }
+  }
+}
+material Caution/Orange2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/orangecaution2.png
+        // Repeat the texture over the surface (4 per face)
+        scale 1.0 1.0
+      }
+    }
+  }
+}
+material Caution/Orange3
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.5 0.5 0.5 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/orangecaution3.png
+        // Repeat the texture over the surface (4 per face)
+        scale 3.0 1.0
+      }
+    }
+  }
+}
+material Caution/Orange4
+{
+  technique
+  {
+    pass
+    {
+      ambient 1.0 1.0 1.0 1.000000
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/orangecaution3.png
+        // Repeat the texture over the surface (4 per face)
+        scale 1.0 2.0
+      }
+    }
+  }
+}

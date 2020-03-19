@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='caution_10cm_pillar'>
+    <static>1</static>
+    <pose frame=''>0 0 0 0 0 0</pose>
+    <static>1</static>
+    <link name='Pillar'>
+      <collision name='Pillar_Collision'>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.5</size>
+          </box>
+        </geometry>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
+      </collision>
+      <visual name='Pillar_Visual'>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.5</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/caution.material</uri>
+            <name>Caution/Orange3</name>
+          </script>
+           <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+    </link>
+  </model>
+</sdf>
