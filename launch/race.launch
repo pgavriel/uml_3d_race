@@ -1,5 +1,5 @@
 <launch>
   <node name="referee_node" pkg="uml_3d_race" type="referee" output="screen"/>
 
-  <node name="mover_node" pkg="uml_3d_race" type="mover_node"/>
+  <node name="mover_node" pkg="uml_3d_race" type="mover_node" output="screen"/>
 </launch>
