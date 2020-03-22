@@ -3,32 +3,6 @@
   <model name='track_straight_3'>
     <static>1</static>
     <pose frame=''>0 0 0 0 -0 0</pose>
-    <link name='Floor'>
-      <collision name='Floor_Collision'>
-        <geometry>
-          <box>
-            <size>5.25 1.75 0.2</size>
-          </box>
-        </geometry>
-        <pose frame=''>0 0 0.1 0 -0 0</pose>
-      </collision>
-      <visual name='Floor_Visual'>
-        <pose frame=''>0 0 0.1 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>5.25 1.75 0.2</size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Wood</name>
-          </script>
-          <ambient>1 0.764706 0.305882 1</ambient>
-        </material>
-      </visual>
-      <pose frame=''>0.005 -0.002 0 0 -0 3.14159</pose>
-    </link>
     <link name='Wall_1'>
       <collision name='Wall_1_Collision'>
         <geometry>

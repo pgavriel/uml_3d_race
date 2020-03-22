@@ -3,32 +3,6 @@
   <model name='room_3x3'>
     <static>1</static>
     <pose frame=''>0 0 0 0 -0 0</pose>
-    <link name='Floor'>
-      <collision name='Floor_Collision'>
-        <geometry>
-          <box>
-            <size>5.26 5.25 0.2</size>
-          </box>
-        </geometry>
-        <pose frame=''>0 0 0.1 0 -0 0</pose>
-      </collision>
-      <visual name='Floor_Visual'>
-        <pose frame=''>0 0 0.1 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>5.26 5.25 0.2</size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Wood</name>
-          </script>
-          <ambient>1 0.764706 0.305882 1</ambient>
-        </material>
-      </visual>
-      <pose frame=''>-0.001194 0.003047 0 0 -0 1.5708</pose>
-    </link>
     <link name='Wall_1'>
       <collision name='Wall_1_Collision'>
         <geometry>

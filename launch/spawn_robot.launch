@@ -1,0 +1,37 @@
+<!-- Assumes Gazebo is already running -->
+<launch>
+  <!-- Settings (Robot position args are overidden by race.launch)-->
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.2" />
+  <arg name="Y" default="0.0" /> <!-- Yaw; Rotation in radians. -->
+  <arg name="model_name" default="Pioneer" />
+  <!-- You can set model_file to the model.sdf in 'nerpio' or 'nerpio_2wd' -->
+  <arg name="model_file" default="$(find uml_3d_race)/resources/models/nerpio/model.sdf" />
+
+  <!-- Spawn robot -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="
+    -sdf
+    -model $(arg model_name)
+    -file $(arg model_file)
+    -x $(arg x)
+    -y $(arg y)
+    -z $(arg z)
+    -Y $(arg Y)"/>
+
+    <!-- Publish robot spawn for resetting to -->
+    <node name="spawn_publisher" pkg="uml_3d_race" type="goal_publisher" output="screen">
+      <param name="topic"  value="spawn" />
+      <param name="goal_x" value="$(arg x)" />
+      <param name="goal_y" value="$(arg y)" />
+      <param name="goal_z" value="$(arg Y)" />
+    </node>
+
+    <!-- Laser filter to remove infinite values -->
+    <!-- http://wiki.ros.org/laser_filters -->
+    <node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
+      <rosparam command="load" file="$(find uml_3d_race)/resources/config/laser_config.yaml" />
+      <remap from="/scan" to="/nerpio/frontscan" />
+      <remap from="/scan_filtered" to="/nerpio/frontscan_filtered" />
+    </node>
+</launch>

@@ -12,11 +12,12 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  geometry_msgs
+  tf2
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -134,7 +135,10 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/uml_3Drace_node.cpp)
+ add_executable(referee src/referee.cpp)
+ add_executable(mover_node src/mover.cpp)
+ add_executable(goal_publisher src/goal_pub.cpp)
+ add_executable(reset_robot src/reset_robot.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -147,9 +151,18 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
+ target_link_libraries(referee
+   ${catkin_LIBRARIES}
+ )
+ target_link_libraries(mover_node
+   ${catkin_LIBRARIES}
+ )
+ target_link_libraries(goal_publisher
+   ${catkin_LIBRARIES}
+ )
+ target_link_libraries(reset_robot
+   ${catkin_LIBRARIES}
+ )
 
 #############
 ## Install ##
