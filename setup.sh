@@ -1,6 +1,5 @@
 #!/bin/bash
 pwd
-chmod +x ./resetrobot.sh
 destination="$HOME/.gazebo/models/"
 destination2="/usr/share/gazebo-7/media/materials/"
 echo
