@@ -3,9 +3,9 @@
     <!-- World file -->
     <arg name="world" value="level2" />
     <!-- Robot spawn position -->
-    <arg name="init_x" value="0.0" />
-    <arg name="init_y" value="0.0" />
-    <arg name="init_Y" value="1.5708" />
+    <arg name="spawn_x" value="0.0" />
+    <arg name="spawn_y" value="0.0" />
+    <arg name="spawn_Yaw" value="1.5708" />
     <!-- Goal Position -->
     <arg name="goal_x" value="-0.82"/>
     <arg name="goal_y" value="-3.88"/>

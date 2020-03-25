@@ -1,11 +1,13 @@
 #include "ros/ros.h"
-#include "std_msgs/String.h"
+#include <math.h>
 #include "geometry_msgs/Twist.h"
 #include "nav_msgs/Odometry.h"
-#include <math.h>
-#include <sstream>
+
+//Goal is a custom message type defined in uml_3d_race/msg/Goal.msg
+#include <uml_3d_race/Goal.h>
 
 const float OFFICIAL_GOAL_TOL = 0.9;
+
 float goal_x;
 float goal_y;
 float goal_tolerance;
@@ -22,15 +24,12 @@ float distance(float x1, float y1, float x2, float y2){
 
 void odom_callback(const nav_msgs::Odometry& msg){
   float goal_dist = distance(msg.pose.pose.position.x,msg.pose.pose.position.y,goal_x,goal_y);
-  //ROS_INFO("GOAL DIST: %.2f",goal_dist);
   bool finished = (goal_dist < goal_tolerance);
-  //bool cheated = false; //(distance(msg.pose.pose.position.x,msg.pose.pose.position.y,last_pos.x,last_pos.y)>vel*5);
-  float d = distance(msg.pose.pose.position.x,msg.pose.pose.position.y,last_pos.x,last_pos.y);
-  bool cheated = (d > 1.0);
-  //ROS_INFO("Odom Dist Traveled: %.2f",d);
+
+  float odom_dist = distance(msg.pose.pose.position.x,msg.pose.pose.position.y,last_pos.x,last_pos.y);
+  bool cheated = (odom_dist > 0.5);
   if(cheated){ state = 1; }
-  float err = 0.005;
-  // if(goal_tolerance > 0.9+err || goal_tolerance < 0.9-err) { state = 2; ROS_INFO("TOL:%.5f",goal_tolerance);}
+  //ROS_INFO("Odom Dist Traveled: %.2f",odom_dist);
 
   if(finished){
     if(abs(goal_tolerance-OFFICIAL_GOAL_TOL) > 0.01) { state = 2; ROS_INFO("TOL:%.5f",goal_tolerance);}
@@ -63,10 +62,10 @@ void vel_callback(const geometry_msgs::Twist& msg){
   }
 }
 
-void goal_callback(const geometry_msgs::Point& goal){
+void goal_callback(const uml_3d_race::Goal& goal){
   goal_x = goal.x;
   goal_y = goal.y;
-  goal_tolerance = goal.z;
+  goal_tolerance = goal.tolerance;
 }
 
 int main(int argc, char **argv){

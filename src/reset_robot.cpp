@@ -5,13 +5,16 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <string>
 
+//Spawn is a custom message type defined in uml_3d_race/msg/Spawn.msg
+#include <uml_3d_race/Spawn.h>
+
 bool msg_received = false;
 float x, y, yaw;
 
-void spawn_callback(const geometry_msgs::Point& spawn){
-  x = spawn.x;
-  y = spawn.y;
-  yaw = spawn.z;
+void spawn_callback(const uml_3d_race::Spawn& spawn){
+  x = spawn.x_position;
+  y = spawn.y_position;
+  yaw = spawn.z_rotation;
   msg_received = true;
 }
 
