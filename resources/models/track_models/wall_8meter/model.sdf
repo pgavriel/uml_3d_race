@@ -1,21 +1,22 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='obstacle_squarepillar_large'>
+  <model name='wall_8meter'>
+    <static>1</static>
     <pose frame=''>0 0 0 0 -0 0</pose>
-    <link name='Pillar'>
-      <collision name='Pillar_Collision'>
+    <link name='Wall'>
+      <collision name='Wall_Collision'>
         <geometry>
           <box>
-            <size>1 1 1</size>
+            <size>8.0 0.15 1.0</size>
           </box>
         </geometry>
         <pose frame=''>0 0 0.5 0 -0 0</pose>
       </collision>
-      <visual name='Pillar_Visual'>
+      <visual name='Wall_Visual'>
         <pose frame=''>0 0 0.5 0 -0 0</pose>
         <geometry>
           <box>
-            <size>1 1 1</size>
+            <size>8.0 0.15 1.0</size>
           </box>
         </geometry>
         <material>
@@ -28,6 +29,5 @@
       </visual>
       <pose frame=''>0 0 0 0 -0 0</pose>
     </link>
-    <static>1</static>
   </model>
 </sdf>

@@ -1,0 +1,13 @@
+<launch>
+  <include file="$(find uml_3d_race)/launch/spawn_world.launch">
+    <!-- World file -->
+    <arg name="world" value="nerve_mobility1" />
+    <!-- Robot spawn position -->
+    <arg name="spawn_x" value="0.0" />
+    <arg name="spawn_y" value="8.0" />
+    <arg name="spawn_Yaw" value="0.0" />
+    <!-- Goal Position -->
+    <arg name="goal_x" value="0.0"/>
+    <arg name="goal_y" value="12.0"/>
+  </include>
+</launch>

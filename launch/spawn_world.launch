@@ -1,19 +1,21 @@
 <launch>
   <!-- SETTINGS -->
   <!-- World file to launch (excluding the .world extension) -->
-  <arg name="world" default="baby_steps" />
+  <arg name="load_world" default="true" />
+  <arg name="world" default="test" />
   <!-- Robot Spawn position -->
+  <arg name="spawn_robot" default="true" />
   <arg name="spawn_x" default="0.0" />
   <arg name="spawn_y" default="0.0" />
   <arg name="spawn_Yaw" default="0.0" /> <!-- Rotation in radians. -->
   <!-- Goal Position -->
-  <arg name="goal_x" default="7.33"/>
-  <arg name="goal_y" default="1.75"/>
+  <arg name="goal_x" default="5.0"/>
+  <arg name="goal_y" default="0.0"/>
 
   <!-- Launch empty Gazebo world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <!-- Set .world file -->
-    <arg name="world_name" value="$(find uml_3d_race)/worlds/$(arg world).world"/>
+    <arg if="$(arg load_world)" name="world_name" value="$(find uml_3d_race)/worlds/$(arg world).world"/>
     <!-- Gazebo Settings -->
     <arg name="paused" value="false" />
     <arg name="use_sim_time" value="true" />
@@ -22,8 +24,8 @@
     <arg name="debug" value="false" />
   </include>
 
-<!-- Spawn robot -->
-  <include file="$(find uml_3d_race)/launch/spawn_robot.launch">
+  <!-- Spawn robot -->
+  <include if="$(arg spawn_robot)" file="$(find uml_3d_race)/launch/spawn_robot.launch">
     <arg name="x" value="$(arg spawn_x)" />
     <arg name="y" value="$(arg spawn_y)" />
     <arg name="Yaw" value="$(arg spawn_Yaw)" />
