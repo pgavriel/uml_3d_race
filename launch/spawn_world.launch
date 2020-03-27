@@ -1,9 +1,8 @@
 <launch>
   <!-- SETTINGS -->
   <!-- World file to launch (excluding the .world extension) -->
-  <arg name="load_world" default="true" />
-  <arg name="world" default="test" />
-  <!-- Robot Spawn position -->
+  <arg name="world" default="level1" />
+  <!-- Robot Spawn Position -->
   <arg name="spawn_robot" default="true" />
   <arg name="spawn_x" default="0.0" />
   <arg name="spawn_y" default="0.0" />
@@ -12,16 +11,10 @@
   <arg name="goal_x" default="5.0"/>
   <arg name="goal_y" default="0.0"/>
 
-  <!-- Launch empty Gazebo world -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <!-- Set .world file -->
-    <arg if="$(arg load_world)" name="world_name" value="$(find uml_3d_race)/worlds/$(arg world).world"/>
-    <!-- Gazebo Settings -->
-    <arg name="paused" value="false" />
-    <arg name="use_sim_time" value="true" />
-    <arg name="gui" value="true" />
-    <arg name="headless" value="false" />
-    <arg name="debug" value="false" />
+
+  <!-- Launch Gazebo World -->
+  <include if="$(arg load_world)" file="$(find uml_3d_race/launch/gazebo.launch)">
+    <arg name="world" value="$(arg world)" />
   </include>
 
   <!-- Spawn robot -->
@@ -30,10 +23,4 @@
     <arg name="y" value="$(arg spawn_y)" />
     <arg name="Yaw" value="$(arg spawn_Yaw)" />
   </include>
-
-  <!-- Publish the goal for the given .world -->
-  <node name="goal_publisher" pkg="uml_3d_race" type="goal_publisher" output="screen">
-    <param name="goal_x" value="$(arg goal_x)" />
-    <param name="goal_y" value="$(arg goal_y)" />
-  </node>
 </launch>

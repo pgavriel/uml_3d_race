@@ -1,13 +1,18 @@
 <launch>
+  <!-- Include spawn_world.launch and set it's arguments -->
   <include file="$(find uml_3d_race)/launch/spawn_world.launch">
     <!-- World file -->
-    <arg name="world" value="nerve_mobility1" />
+    <arg name="world" value="nerve_mobility2" />
     <!-- Robot spawn position -->
     <arg name="spawn_x" value="0.0" />
     <arg name="spawn_y" value="8.0" />
     <arg name="spawn_Yaw" value="0.0" />
-    <!-- Goal Position -->
-    <arg name="goal_x" value="0.0"/>
-    <arg name="goal_y" value="12.0"/>
   </include>
+
+  <!-- Publish the goal for the given .world -->
+  <node name="goal_publisher" pkg="uml_3d_race" type="goal_publisher" output="screen">
+    <!-- Goal Position -->
+    <param name="goal_x" value="0.0" />
+    <param name="goal_y" value="12.0" />
+  </node>
 </launch>

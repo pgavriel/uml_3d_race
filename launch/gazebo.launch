@@ -1,0 +1,18 @@
+<launch>
+  <!-- World file to launch (excluding the .world extension) -->
+  <arg name="load_world" default="true" />
+  <arg name="world" default="nerve_mobility1" />
+
+
+  <!-- Launch empty Gazebo world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- Set .world file -->
+    <arg if="$(arg load_world)" name="world_name" value="$(find uml_3d_race)/worlds/$(arg world).world"/>
+    <!-- Gazebo Settings -->
+    <arg name="paused" value="false" />
+    <arg name="use_sim_time" value="true" />
+    <arg name="gui" value="true" />
+    <arg name="headless" value="false" />
+    <arg name="debug" value="false" />
+  </include>
+</launch>
