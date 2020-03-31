@@ -72,8 +72,8 @@ int main(int argc, char **argv){
   ros::init(argc, argv, "referee");
   ros::NodeHandle n;
 
-  ros::Subscriber odom_sub = n.subscribe("odom",1000,odom_callback);
-  ros::Subscriber vel_sub = n.subscribe("cmd_vel",1000,vel_callback);
+  ros::Subscriber odom_sub = n.subscribe("/pioneer/odom",1000,odom_callback);
+  ros::Subscriber vel_sub = n.subscribe("/pioneer/cmd_vel",1000,vel_callback);
   ros::Subscriber goal_sub = n.subscribe("goal",1000,goal_callback);
 
   ros::Rate loop_rate(10);

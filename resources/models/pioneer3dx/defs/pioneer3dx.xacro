@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!-- The pioneer description used in this package is a heavily modified version of
+     the pioneer3dx description found in p2os here:
+     https://github.com/allenh1/p2os
+     Note that the pioneers in p2os have no sensors. -->
+
+<robot name="pioneer3dx" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find uml_3d_race)/resources/models/pioneer3dx/defs/pioneer3dx_body.xacro"/>
+
+</robot>

@@ -13,7 +13,7 @@
 
 
   <!-- Launch Gazebo World -->
-  <include if="$(arg load_world)" file="$(find uml_3d_race/launch/gazebo.launch)">
+  <include file="$(find uml_3d_race)/launch/gazebo.launch">
     <arg name="world" value="$(arg world)" />
   </include>
 

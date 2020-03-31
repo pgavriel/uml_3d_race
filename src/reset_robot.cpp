@@ -23,7 +23,7 @@ int main(int argc, char **argv){
   ros::NodeHandle n;
 
   ros::Subscriber sub = n.subscribe("spawn", 1000, spawn_callback);
-  ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
+  ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>("/pioneer/cmd_vel", 1000);
   ros::Publisher odom_pub = n.advertise<gazebo_msgs::ModelState>("/gazebo/set_model_state", 1000);
 
   // Node waits to receive a message from /spawn topics, then publishes the message
@@ -44,7 +44,7 @@ int main(int argc, char **argv){
 
       //Construct respawn ModelState
       gazebo_msgs::ModelState spawn;
-      spawn.model_name = "Pioneer";
+      spawn.model_name = "pioneer";
       spawn.pose = pose;
       spawn.twist = stopped;
       spawn.reference_frame = "world";

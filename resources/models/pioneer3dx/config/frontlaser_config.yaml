@@ -1,0 +1,15 @@
+# Descriptor also modifies the published laser topic.
+descriptor: "front"
+enabled: true
+visualize: true
+
+#Sensor Positioning:
+x: 0.13   # Meters
+y: 0.0    # Meters
+z: 0.25   # Meters
+yaw: 0.0  # Radians
+
+# Sensor Settings
+min_angle: -2.26889 # Radians
+max_angle: 2.26889  # Radians
+ray_count: 240

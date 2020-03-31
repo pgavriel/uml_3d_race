@@ -15,8 +15,8 @@ int main (int argc, char **argv)
 ros::init(argc,argv,"mover_node");
 ros::NodeHandle n;
 
-ros::Subscriber sub = n.subscribe("/nerpio/frontscan_filtered",1000,outputCallback);
-ros::Publisher twist_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel",100);
+ros::Subscriber sub = n.subscribe("/pioneer/frontscan_filtered",1000,outputCallback);
+ros::Publisher twist_pub = n.advertise<geometry_msgs::Twist>("/pioneer/cmd_vel",100);
 
 geometry_msgs::Twist command;
 float speed, angle, left, right, diff, threshold;

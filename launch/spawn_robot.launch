@@ -3,35 +3,45 @@
   <!-- Settings (Robot position args are overidden by spawn_world.launch)-->
   <arg name="x" default="0.0" />
   <arg name="y" default="0.0" />
-  <arg name="z" default="0.2" />
+  <arg name="z" default="0.0" />
   <arg name="Yaw" default="0.0" /> <!-- Rotation in radians. -->
-  <arg name="model_name" default="Pioneer" />
-  <!-- You can set model_file to the model.sdf in 'nerpio' or 'nerpio_2wd' -->
-  <arg name="model_file" default="$(find uml_3d_race)/resources/models/nerpio/model.sdf" />
 
-  <!-- Spawn robot -->
+  <!-- model_name determines the topics to be published, and serves as a unique identifier for Gazebo -->
+  <arg name="model_name" default="pioneer" />
+  <!-- The location of the mesh files for our robot -->
+  <arg name="model_dir" default="$(find uml_3d_race)/resources/models/pioneer3dx/meshes" />
+  <!-- The location of the top-level xacro file that defines the robot  -->
+  <arg name="model_file" default="$(find uml_3d_race)/resources/models/pioneer3dx/defs/pioneer3dx.xacro" />
+
+
+  <!-- Load robot_description parameter from top-level pioneer3dx.xacro file -->
+  <!-- Also send the model_dir and model_name as arguments to help us generate the model -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model_file) model_dir:=$(arg model_dir) model_name:=$(arg model_name)" />
+
+  <!-- Spawn robot into Gazebo -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="
-    -sdf
+    -urdf
     -model $(arg model_name)
-    -file $(arg model_file)
+    -param robot_description
     -x $(arg x)
     -y $(arg y)
     -z $(arg z)
     -Y $(arg Yaw)"/>
 
-    <!-- Publish robot spawn for resetting to -->
-    <node name="spawn_publisher" pkg="uml_3d_race" type="spawn_publisher" output="screen">
-      <param name="topic"  value="spawn" />
-      <param name="x_position" value="$(arg x)" />
-      <param name="y_position" value="$(arg y)" />
-      <param name="z_rotation" value="$(arg Yaw)" />
-    </node>
+  <!-- Publish robot spawn for resetting to -->
+  <node name="spawn_publisher" pkg="uml_3d_race" type="spawn_publisher" output="screen">
+    <param name="topic"  value="spawn" />
+    <param name="x_position" value="$(arg x)" />
+    <param name="y_position" value="$(arg y)" />
+    <param name="z_rotation" value="$(arg Yaw)" />
+  </node>
 
-    <!-- Laser filter to remove infinite values -->
-    <!-- http://wiki.ros.org/laser_filters -->
-    <node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
-      <rosparam command="load" file="$(find uml_3d_race)/resources/config/laser_config.yaml" />
-      <remap from="/scan" to="/nerpio/frontscan" />
-      <remap from="/scan_filtered" to="/nerpio/frontscan_filtered" />
-    </node>
+  <!-- Laser filter to remove infinite values from the front facing laser -->
+  <!-- http://wiki.ros.org/laser_filters -->
+  <node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <rosparam command="load" file="$(find uml_3d_race)/resources/config/laserfilter_config.yaml" />
+    <remap from="/scan" to="/$(arg model_name)/frontscan" />
+    <remap from="/scan_filtered" to="/$(arg model_name)/frontscan_filtered" />
+  </node>
+
 </launch>
