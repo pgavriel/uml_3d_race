@@ -61,13 +61,14 @@ Start with level1.launch and work your way up to levelX.launch. Write an algorit
 * **worlds/** - Contains all .world files for Gazebo to load.  
 * **setup.sh** - A setup script that makes the models and textures provided in this package available for Gazebo to use.  
 
-##Important Launch Files:    
+## Important Launch Files:    
 * **gazebo.launch** - Launches Gazebo as an empty world or loads a specific world file. This launch file does not include any robots. This file is included in other launch files to reduce their complexity, and it can be useful for creating or modifying world filed.  
 To launch an empty world:  
   > roslaunch uml_3d_race gazebo.launch load_world:=false  
+  
 To specify a world:  
   > roslaunch uml_3d_race gazebo.launch world:=[world filename excluding .world extension]  
-      
+
 * **spawn_robot.launch** - Assuming Gazebo is already running, this launch file will load the robot_description from a .xacro file, spawn the model into Gazebo with the given model_name and position, create a node to publish the spawn position (for resetting to), and adds a laser filter to remove infinite values from the frontal laser.  
 To spawn a robot with a specified name and/or position:  
   > roslaunch uml_3d_race spawn_robot.launch model_name:=robotname x:=5.0 y:=5.0 Yaw:=3.14  
@@ -92,6 +93,7 @@ For example:
 [Gazebo Tutorials](http://gazebosim.org/tutorials)  
 [ROS .launch file documentation](http://wiki.ros.org/roslaunch/XML)  
 [ROS Navigation Tutorials](http://wiki.ros.org/navigation/Tutorials)  
+[URDF Tutorials](http://wiki.ros.org/urdf/Tutorials)   
 [SDF (Simulation Description Format) Specification for Gazebo Models](http://sdformat.org/spec)  
 [OGRE Material Script Documentation (Gazebo Textures)](https://ogrecave.github.io/ogre/api/1.12/_material-_scripts.html)  
 [Your best friend](http://google.com)  
