@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!-- Define a macro to add a laser sensor to the model based on given parameters. -->
-  <xacro:macro name="add_laser" params="descriptor visualize x y z yaw min max samples">
+  <xacro:macro name="add_laser" params="descriptor visualize x y z yaw min max samples range">
     <gazebo>
     <link name='hokuyo_${descriptor}_link'>
       <pose frame=''>${x} ${y} ${z} 0 -0 ${yaw}</pose>
@@ -57,7 +57,7 @@
           </scan>
           <range>
             <min>0.08</min>
-            <max>10</max>
+            <max>${range}</max>
             <resolution>0.01</resolution>
           </range>
         </ray>

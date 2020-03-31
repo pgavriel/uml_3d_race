@@ -13,3 +13,4 @@ yaw: 0.0  # Radians
 min_angle: -2.26889 # Radians
 max_angle: 2.26889  # Radians
 ray_count: 240
+range: 10.0         # Meters

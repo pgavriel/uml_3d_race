@@ -34,7 +34,9 @@ Start with level1.launch and work your way up to levelX.launch. Write an algorit
 
 ## Things to Explore:  
 - How to create and use your own gazebo world course  
-- How to use information from all the sensors  
+- How to add more sensors to the robot
+- How to use multiple sensors simultaneously
+- How to use depth camera data  
 - How to use custom textures  
 
 ## Useful Resources:  

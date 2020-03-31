@@ -298,7 +298,8 @@
                      yaw="${front_config['yaw']}"
                      min="${front_config['min_angle']}"
                      max="${front_config['max_angle']}"
-                     samples="${front_config['ray_count']}"/>
+                     samples="${front_config['ray_count']}"
+                     range="${front_config['range']}"/>
   </xacro:if>
 
   <!-- If enabled is set to true, add the laser. -->
@@ -311,7 +312,8 @@
                      yaw="${rear_config['yaw']}"
                      min="${rear_config['min_angle']}"
                      max="${rear_config['max_angle']}"
-                     samples="${rear_config['ray_count']}"/>
+                     samples="${rear_config['ray_count']}"
+                     range="${front_config['range']}"/>
   </xacro:if>
 
   <!-- If enabled is set to true, add the kinect. -->
