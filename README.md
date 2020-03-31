@@ -65,9 +65,9 @@ Start with level1.launch and work your way up to levelX.launch. Write an algorit
 * **gazebo.launch** - Launches Gazebo as an empty world or loads a specific world file. This launch file does not include any robots. This file is included in other launch files to reduce their complexity, and it can be useful for creating or modifying world filed.  
 To launch an empty world:  
   > roslaunch uml_3d_race gazebo.launch load_world:=false  
-  
-To specify a world:  
-  > roslaunch uml_3d_race gazebo.launch world:=[world filename excluding .world extension]  
+
+  To specify a world:  
+    > roslaunch uml_3d_race gazebo.launch world:=[world filename excluding .world extension]  
 
 * **spawn_robot.launch** - Assuming Gazebo is already running, this launch file will load the robot_description from a .xacro file, spawn the model into Gazebo with the given model_name and position, create a node to publish the spawn position (for resetting to), and adds a laser filter to remove infinite values from the frontal laser.  
 To spawn a robot with a specified name and/or position:  
