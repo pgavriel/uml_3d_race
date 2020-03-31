@@ -1,4 +1,5 @@
 #!/bin/bash
+# Should be run from your ROS workspace directory
 pwd
 destination="$HOME/.gazebo/models/"
 destination2="/usr/share/gazebo-7/media/materials/"
@@ -10,8 +11,8 @@ echo "Grant permissions for Gazebo Textures folder:"
 sudo chmod 777 /usr/share/gazebo-7/media/materials/*
 echo
 echo "Copying Models..."
-echo "- Pioneer 2 Wheel"; cp -r ./src/uml_3d_race/resources/models/nerpio_2wd $destination
-echo "- Pioneer 4 Wheel"; cp -r ./src/uml_3d_race/resources/models/nerpio $destination
+echo "- SDF Pioneer 2 Wheel"; cp -r ./src/uml_3d_race/resources/models/sdf_robots/pioneer_2wd $destination
+echo "- SDF Pioneer 4 Wheel"; cp -r ./src/uml_3d_race/resources/models/sdf_robots/pioneer_4wd $destination
 echo "- Track Pieces"; cp -r ./src/uml_3d_race/resources/models/track_models/* $destination
 echo "- Obstacles"; cp -r ./src/uml_3d_race/resources/models/obstacles/* $destination
 echo "Done."

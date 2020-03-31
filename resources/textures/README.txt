@@ -30,7 +30,7 @@ PROCESS // SETUP:
 1. Grant yourself full permissions of the relevant folders, as they are read only by default:
     sudo chmod 777 /usr/share/gazebo-7/media/materials/*
 2. Place whichever *.material files you would like to use under materials/scripts/
-3. Place any image files that are being utilized by the *.material file under materials/textures
+3. Place any image files that are being utilized by the *.material file under materials/textures/
 
 USAGE:
 After setup is complete, now you can easily reference these textures within your .SDF
