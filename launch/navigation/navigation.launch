@@ -1,0 +1,37 @@
+<launch>
+  <!-- Settings -->
+  <arg name="namespace" default="pioneer" />
+  <!-- Map name -->
+  <arg name="map" default="level1" />
+  <!-- Initial orientation for AMCL node. -->
+  <arg name="init_x" default="0.0" />
+	<arg name="init_y" default="0.0" />
+	<arg name="init_yaw" default="0.0" /> <!-- Degrees (amcl.launch handles conversion) -->
+  <!-- Move_base configuration folder. -->
+  <arg name="move_base_config" default="default" />
+  <!-- NOTE: move_base_config specifies the folder to find the .yaml config files for
+       move_base. If you would like to safely play around with navigation settings,
+       you can copy the default folder, rename it, then change move_base_config. -->
+
+  <!-- Launch Map Server -->
+  <include file="$(find uml_3d_race)/launch/navigation/map_server.launch">
+    <arg name="map_name" value="$(arg map)" />
+  </include>
+
+	<!--- Launch AMCL (Laser Localization) -->
+	<include file="$(find uml_3d_race)/launch/navigation/amcl.launch" >
+    <arg name="namespace" value="$(arg namespace)" />
+    <arg name="init_x" default="$(arg init_x)" />
+    <arg name="init_y" default="$(arg init_y)" />
+    <arg name="init_yaw" default="$(arg init_yaw)" />
+  </include>
+
+  <!-- Launch move_base -->
+  <!-- Note that you will also need to change the relevant .yaml files (or make new copies)
+       if you wish to use another namespace/robot_name. -->
+  <include file="$(find uml_3d_race)/launch/navigation/move_base.launch">
+    <arg name="namespace" value="$(arg namespace)" />
+    <arg name="config" value="$(arg move_base_config)" />
+  </include>
+
+</launch>

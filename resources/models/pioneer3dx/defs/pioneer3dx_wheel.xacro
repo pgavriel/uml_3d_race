@@ -19,7 +19,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry name="pioneer_geom">
-          <mesh filename="$(arg model_dir)/${suffix}_wheel.stl"/>
+          <mesh filename="file://$(arg model_dir)/${suffix}_wheel.stl"/>
           <!-- <mesh filename="package://resources/models/pioneer3dx/meshes/${suffix}_wheel.stl"/> -->
         </geometry>
         <material name="WheelBlack">
@@ -51,7 +51,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry name="pioneer_geom">
-          <mesh filename="$(arg model_dir)/${suffix}_hubcap.stl"/>
+          <mesh filename="file://$(arg model_dir)/${suffix}_hubcap.stl"/>
         </geometry>
         <material name="HubcapYellow">
           <color rgba="1.0 0.811 0.151 1.0"/>

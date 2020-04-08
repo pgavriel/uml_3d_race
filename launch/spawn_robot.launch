@@ -18,11 +18,21 @@
   <!-- Also send the model_dir and model_name as arguments to help us generate the model -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model_file) model_dir:=$(arg model_dir) model_name:=$(arg model_name)" />
 
+  <!-- publish TFs for static/fixed links (based on the robot_description parameter) -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+    <param name="publish_frequency" type="double" value="30.0"/>
+    <param name="tf_prefix" type="string" value="$(arg model_name)"/>
+  </node>
+  <!-- Without the joint_state_publisher, non-fixed joints that are not published by a plugin
+       (i.e. - the swivel_link joint) will not have it's transform published.
+       joint_state_publisher also uses the robot_description parameter. -->
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen"/>
+
   <!-- Spawn robot into Gazebo -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="
     -urdf
     -model $(arg model_name)
-    -param robot_description
+    -param /robot_description
     -x $(arg x)
     -y $(arg y)
     -z $(arg z)
@@ -30,7 +40,7 @@
 
   <!-- Publish robot spawn for resetting to -->
   <node name="spawn_publisher" pkg="uml_3d_race" type="spawn_publisher" output="screen">
-    <param name="topic"  value="spawn" />
+    <param name="topic"  value="$(arg model_name)/spawn" />
     <param name="x_position" value="$(arg x)" />
     <param name="y_position" value="$(arg y)" />
     <param name="z_rotation" value="$(arg Yaw)" />

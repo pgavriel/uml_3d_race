@@ -1,0 +1,8 @@
+<launch>
+  <!-- Doc: http://wiki.ros.org/map_server?distro=kinetic -->
+
+  <arg name="map_name" default="level1" />
+
+	<node name="map_server" pkg="map_server" type="map_server"
+        args="$(find uml_3d_race)/resources/maps/$(arg map_name)/$(arg map_name).yaml"/>
+</launch>

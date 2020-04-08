@@ -7,14 +7,17 @@
 
 //Spawn is a custom message type defined in uml_3d_race/msg/Spawn.msg
 #include <uml_3d_race/Spawn.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 bool msg_received = false;
-float x, y, yaw;
+float x, y;
+tf2::Quaternion orientation;
 
-void spawn_callback(const uml_3d_race::Spawn& spawn){
-  x = spawn.x_position;
-  y = spawn.y_position;
-  yaw = spawn.z_rotation;
+void spawn_callback(const geometry_msgs::PoseWithCovarianceStamped& spawn){
+  x = spawn.pose.pose.position.x;
+  y = spawn.pose.pose.position.y;
+  orientation[2] = spawn.pose.pose.orientation.z;
+  orientation[3] = spawn.pose.pose.orientation.w;
   msg_received = true;
 }
 
@@ -22,8 +25,14 @@ int main(int argc, char **argv){
   ros::init(argc, argv, "robot_reset_node");
   ros::NodeHandle n;
 
-  ros::Subscriber sub = n.subscribe("spawn", 1000, spawn_callback);
-  ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>("/pioneer/cmd_vel", 1000);
+  //Set defaults
+  std::string model_name = "pioneer";
+  std::string topic = "pioneer/spawn";
+  n.getParam(ros::this_node::getName()+"/topic",topic);
+  n.getParam(ros::this_node::getName()+"/model_name",model_name);
+
+  ros::Subscriber sub = n.subscribe(topic, 1000, spawn_callback);
+  ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>(model_name+"/cmd_vel", 1000);
   ros::Publisher odom_pub = n.advertise<gazebo_msgs::ModelState>("/gazebo/set_model_state", 1000);
 
   // Node waits to receive a message from /spawn topics, then publishes the message
@@ -37,14 +46,12 @@ int main(int argc, char **argv){
       geometry_msgs::Pose pose;
       pose.position.x = x;
       pose.position.y = y;
-      tf2::Quaternion quaternion;
-      quaternion.setRPY( 0, 0, yaw );
-      pose.orientation.z = quaternion[2];
-      pose.orientation.w = quaternion[3];
+      pose.orientation.z = orientation[2];
+      pose.orientation.w = orientation[3];
 
       //Construct respawn ModelState
       gazebo_msgs::ModelState spawn;
-      spawn.model_name = "pioneer";
+      spawn.model_name = model_name;
       spawn.pose = pose;
       spawn.twist = stopped;
       spawn.reference_frame = "world";

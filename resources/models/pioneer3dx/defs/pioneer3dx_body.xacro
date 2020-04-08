@@ -48,7 +48,7 @@
   	<visual>
   	  <origin xyz="-0.045 0 0.148" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
-    		<mesh filename="$(arg model_dir)/chassis.stl"/>
+    		<mesh filename="file://$(arg model_dir)/chassis.stl"/>
   	  </geometry>
   	  <material name="ChassisRed">
     		<color rgba="0.851 0.0 0.0 1.0"/>
@@ -57,7 +57,7 @@
   	<collision>
   	  <origin xyz="-0.045 0 0.148" rpy="0 0 0"/>
   	  <geometry>
-        <box size="0.4 0.28 0.17"/>
+        <box size="0.42 0.28 0.17"/>
         <!-- This is the correct bounding box, but x=0.43 crashes Gazebo? -->
     		<!--box size="0.43 0.28 0.17"/-->
   	  </geometry>
@@ -77,7 +77,7 @@
   	<visual>
   	  <origin xyz="0 0 0" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
-    		<mesh filename="$(arg model_dir)/top.stl"/>
+    		<mesh filename="file://$(arg model_dir)/top.stl"/>
   	  </geometry>
   	  <material name="TopBlack">
     		<color rgba="0.038 0.038 0.038 1.0"/>
@@ -95,7 +95,7 @@
   </joint>
 
   <!-- Swivel -->
-  <link name="swivel">
+  <link name="swivel_link">
   	<inertial>
   	  <mass value="0.1"/>
   	  <origin xyz="0 0 0"/>
@@ -105,24 +105,24 @@
   	<visual>
   	  <origin xyz="0 0 0" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
-    		<mesh filename="$(arg model_dir)/swivel.stl"/>
+    		<mesh filename="file://$(arg model_dir)/swivel.stl"/>
   	  </geometry>
   	  <material name="swivel">
     		<color rgba="0.5 0.5 0.5 1"/>
   	  </material>
   	</visual>
   </link>
-  <gazebo reference="swivel">
+  <gazebo reference="swivel_link">
   	<material value="Gazebo/Black"/>
   </gazebo>
 
   <joint name="base_swivel_joint" type="continuous">
   	<origin xyz="-0.185 0 0.055" rpy="0 0 0"/>
+  	<parent link="base_link"/>
+  	<child link="swivel_link"/>
   	<axis xyz="0 0 1"/>
     <limit effort="100" velocity="100" k_velocity="0" />
     <joint_properties damping="0.0" friction="0.0" />
-  	<parent link="base_link"/>
-  	<child link="swivel"/>
   </joint>
 
   <!-- Center Wheel + Hubcap -->
@@ -136,7 +136,7 @@
   	<visual>
   	  <origin xyz="0 0 0" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
-    		<mesh filename="$(arg model_dir)/center_hubcap.stl"/>
+    		<mesh filename="file://$(arg model_dir)/center_hubcap.stl"/>
   	  </geometry>
   	  <material name="swivel">
     		<color rgba="0.5 0.5 0.5 1"/>
@@ -149,12 +149,12 @@
 
   <joint name="swivel_hubcap_joint" type="continuous">
   	<origin xyz="-0.026 0 -0.016" rpy="0 0 0"/>
+  	<parent link="swivel_link"/>
+  	<child link="center_wheel"/>
   	<axis xyz="0 1 0"/>
   	<anchor xyz="0 0 0"/>
     <limit effort="100" velocity="100" k_velocity="0" />
     <joint_properties damping="0.0" friction="0.0" />
-  	<parent link="swivel"/>
-  	<child link="center_wheel"/>
   </joint>
 
   <link name="center_wheel">
@@ -167,7 +167,7 @@
   	<visual>
   	  <origin xyz="0 0 0" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
-    		<mesh filename="$(arg model_dir)/center_wheel.stl"/>
+    		<mesh filename="file://$(arg model_dir)/center_wheel.stl"/>
   	  </geometry>
   	  <material name="WheelBlack">
     		<color rgba="0.117 0.117 0.117 1"/>
@@ -204,7 +204,7 @@
   	<visual>
   	  <origin xyz="0 0 0" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
-    		<mesh filename="$(arg model_dir)/front_sonar.stl"/>
+    		<mesh filename="file://$(arg model_dir)/front_sonar.stl"/>
   	  </geometry>
   	  <material name="SonarYellow">
     		<color rgba="0.715 0.583 0.210 1.0"/>
@@ -231,7 +231,7 @@
   	<visual>
   	  <origin xyz="0 0 0" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
-    		<mesh filename="$(arg model_dir)/back_sonar.stl"/>
+    		<mesh filename="file://$(arg model_dir)/back_sonar.stl"/>
   	  </geometry>
   	  <material name="SonarYellow">
     		<color rgba="0.715 0.583 0.210 1.0"/>
@@ -268,9 +268,9 @@
   	  <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>base_link</robotBaseFrame>
       <publishTf>1</publishTf>
-      <publishWheelTF>false</publishWheelTF>
+      <publishWheelTF>true</publishWheelTF>
       <publishOdomTF>true</publishOdomTF>
-      <publishWheelJointState>false</publishWheelJointState>
+      <publishWheelJointState>true</publishWheelJointState>
       <rosDebugLevel>Warn</rosDebugLevel>
   	</plugin>
 
@@ -288,7 +288,7 @@
   	</plugin>
   </gazebo>
 
-  <!-- If enabled is set to true, add the laser. -->
+  <!-- If enabled is set to true, add the front laser. -->
   <xacro:if value="${front_laser == 1}">
     <xacro:add_laser descriptor="${front_config['descriptor']}"
                      visualize="${front_config['visualize']}"
@@ -302,7 +302,7 @@
                      range="${front_config['range']}"/>
   </xacro:if>
 
-  <!-- If enabled is set to true, add the laser. -->
+  <!-- If enabled is set to true, add the rear laser. -->
   <xacro:if value="${rear_laser == 1}">
     <xacro:add_laser descriptor="${rear_config['descriptor']}"
                      visualize="${rear_config['visualize']}"
@@ -313,7 +313,7 @@
                      min="${rear_config['min_angle']}"
                      max="${rear_config['max_angle']}"
                      samples="${rear_config['ray_count']}"
-                     range="${front_config['range']}"/>
+                     range="${rear_config['range']}"/>
   </xacro:if>
 
   <!-- If enabled is set to true, add the kinect. -->

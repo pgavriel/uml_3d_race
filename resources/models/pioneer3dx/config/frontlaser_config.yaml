@@ -6,7 +6,7 @@ visualize: true
 #Sensor Positioning:
 x: 0.13   # Meters
 y: 0.0    # Meters
-z: 0.25   # Meters
+z: 0.275   # Meters
 yaw: 0.0  # Radians
 
 # Sensor Settings

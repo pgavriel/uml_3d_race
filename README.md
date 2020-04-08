@@ -2,7 +2,7 @@
 
 ## Setup:
 1. Clone this repository into your catkin workspace.
-  > cd ~/[CATKIN_WS]/src   
+  > cd ~/<your_ws>/src   
   > git clone https://github.com/pgavriel/uml_3d_race.git    
 2. Build your catkin workspace.   
   > cd ..  
@@ -34,7 +34,7 @@ After making changes and rebuilding, see if things work as you intended by launc
 
 #### Making Progress  
 When you feel like you have beaten the current level, shutdown the terminal running gazebo with 'Ctrl+c', and try the loading the next world via:  
-  >roslaunch uml_3d_race levelX.launch  
+  >roslaunch uml_3d_race level<X>.launch  
 
 ## Challenge:  
 Your goal is to use the sensor data being received by the robot to navigate through increasingly complex stages in the fastest time possible.
@@ -92,8 +92,13 @@ For example:
 [ROS Tutorials](http://wiki.ros.org/ROS/Tutorials)  
 [Gazebo Tutorials](http://gazebosim.org/tutorials)  
 [ROS .launch file documentation](http://wiki.ros.org/roslaunch/XML)  
-[ROS Navigation Tutorials](http://wiki.ros.org/navigation/Tutorials)  
+[ROS Navigation](http://wiki.ros.org/navigation)  
+[Navigation Tuning Guide](https://wiki.ros.org/navigation/Tutorials/Navigation%20Tuning%20Guide)    
+
 [URDF Tutorials](http://wiki.ros.org/urdf/Tutorials)   
+[URDF XML Specification](https://wiki.ros.org/urdf/XML)   
 [SDF (Simulation Description Format) Specification for Gazebo Models](http://sdformat.org/spec)  
 [OGRE Material Script Documentation (Gazebo Textures)](https://ogrecave.github.io/ogre/api/1.12/_material-_scripts.html)  
+
+[Atom IDE (Not required, but I find it useful)](https://atom.io/)    
 [Your best friend](http://google.com)  

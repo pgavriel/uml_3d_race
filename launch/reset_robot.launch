@@ -1,0 +1,13 @@
+<launch>
+
+  <!-- Name of the gazebo model being reset -->
+  <arg name="model_name" default="pioneer" />
+  <!-- Topic to find pose to reset to -->
+  <arg name="topic" default="$(arg model_name)/spawn" />
+
+  <node name="reset_node" pkg="uml_3d_race" type="reset_robot" output="screen">
+    <param name="model_name" value="$(arg model_name)" />
+    <param name="topic" value="$(arg topic)" />
+  </node>
+
+</launch>
