@@ -4,7 +4,7 @@
   <arg name="x" default="0.0" />
   <arg name="y" default="0.0" />
   <arg name="z" default="0.0" />
-  <arg name="Yaw" default="0.0" /> <!-- Rotation in radians. -->
+  <arg name="yaw" default="0.0" /> <!-- Rotation in radians. -->
 
   <!-- model_name determines the topics to be published, and serves as a unique identifier for Gazebo -->
   <arg name="model_name" default="pioneer" />
@@ -19,14 +19,17 @@
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model_file) model_dir:=$(arg model_dir) model_name:=$(arg model_name)" />
 
   <!-- publish TFs for static/fixed links (based on the robot_description parameter) -->
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg model_name)_state_publisher" output="screen">
+    <remap from="joint_states" to="$(arg model_name)/joint_states" />
     <param name="publish_frequency" type="double" value="30.0"/>
     <param name="tf_prefix" type="string" value="$(arg model_name)"/>
   </node>
   <!-- Without the joint_state_publisher, non-fixed joints that are not published by a plugin
        (i.e. - the swivel_link joint) will not have it's transform published.
        joint_state_publisher also uses the robot_description parameter. -->
-  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen"/>
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="$(arg model_name)_joint_publisher" output="screen">
+    <remap from="joint_states" to="$(arg model_name)/joint_states" />
+  </node>
 
   <!-- Spawn robot into Gazebo -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="
@@ -36,19 +39,19 @@
     -x $(arg x)
     -y $(arg y)
     -z $(arg z)
-    -Y $(arg Yaw)"/>
+    -Y $(arg yaw)"/>
 
   <!-- Publish robot spawn for resetting to -->
-  <node name="spawn_publisher" pkg="uml_3d_race" type="spawn_publisher" output="screen">
+  <node name="$(arg model_name)_spawn_publisher" pkg="uml_3d_race" type="spawn_publisher" output="screen">
     <param name="topic"  value="$(arg model_name)/spawn" />
     <param name="x_position" value="$(arg x)" />
     <param name="y_position" value="$(arg y)" />
-    <param name="z_rotation" value="$(arg Yaw)" />
+    <param name="z_rotation" value="$(arg yaw)" />
   </node>
 
   <!-- Laser filter to remove infinite values from the front facing laser -->
   <!-- http://wiki.ros.org/laser_filters -->
-  <node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
+  <node name="$(arg model_name)_laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
     <rosparam command="load" file="$(find uml_3d_race)/resources/config/laserfilter_config.yaml" />
     <remap from="/scan" to="/$(arg model_name)/frontscan" />
     <remap from="/scan_filtered" to="/$(arg model_name)/frontscan_filtered" />

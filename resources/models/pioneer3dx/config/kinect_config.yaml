@@ -3,11 +3,11 @@ descriptor: "kinect"
 enabled: false   # Try setting true
 
 #Sensor Positioning:
-x: 0.08       # Meters
+x: 0.06       # Meters
 y: 0.0        # Meters
 height: 0.35  # Meters
 pan: 0.0      # Radians
 tilt: 0.2     # Radians
 
 #Sensor Settings:
-far_clip: 3.0 # Meters
+far_clip: 5.0 # Meters

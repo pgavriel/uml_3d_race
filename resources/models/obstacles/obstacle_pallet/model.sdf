@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='obstacle_pallet'>
+    <static>1</static>
+    <pose frame=''>0 0 0 0 -0 0</pose>
+    <link name='Pallet'>
+      <collision name='Pallet_Collision'>
+        <geometry>
+          <mesh>
+            <uri>model://obstacle_pallet/pallet.dae</uri>
+          </mesh>
+        </geometry>
+        <pose frame=''>0 0 -0.02 0 -0 0</pose>
+      </collision>
+      <visual name='Pallet_Visual'>
+        <pose frame=''>0 0 -0.02 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://obstacle_pallet/pallet.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://obstacle_pallet/wood.material</uri>
+            <name>Wood/1</name>
+          </script>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <pose frame=''>-0.68 -0.74 0 0 -0 0</pose>
+    </link>
+  </model>
+</sdf>

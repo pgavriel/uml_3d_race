@@ -10,7 +10,7 @@
 	<arg name="init_yaw" default="0.0" /> <!-- Degrees -->
 
 	<!-- AMCL Node -->
-	<node pkg="amcl" type="amcl" name="amcl">
+	<node pkg="amcl" type="amcl" name="$(arg namespace)_amcl">
 		<!-- Set initial pose -->
 		<param name="initial_pose_x" value="$(arg init_x)" />
 		<param name="initial_pose_y" value="$(arg init_y)" />

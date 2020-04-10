@@ -1,6 +1,6 @@
 <launch>
-    <arg name="namespace" default="pioneer"/>
+    <arg name="config_file" default="config" />
 
     <!-- Launch rviz using a specific config file -->
-    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find uml_3d_race)/resources/config/config.rviz" />
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find uml_3d_race)/resources/config/$(arg config_file).rviz" />
 </launch>

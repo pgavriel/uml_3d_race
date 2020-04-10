@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='obstacle_chair'>
+    <static>1</static>
+    <pose frame=''>0 0 0 0 -0 0</pose>
+    <link name='Wall'>
+      <collision name='Chair_Collision'>
+        <geometry>
+          <mesh>
+            <uri>model://obstacle_chair/chair.dae</uri>
+          </mesh>
+        </geometry>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+      </collision>
+      <visual name='Chair_Visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://obstacle_chair/chair.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <pose frame=''>-0.35 -0.35 0 0 -0 0</pose>
+    </link>
+  </model>
+</sdf>

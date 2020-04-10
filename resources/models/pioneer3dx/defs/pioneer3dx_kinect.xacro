@@ -8,272 +8,134 @@
     <xacro:property name="stand_length" value="${ height - robot_height - 0.045 }" />
     <xacro:property name="stand_height" value="${ robot_height + (stand_length / 2) }" />
 
-    <gazebo>
-      <link name='${descriptor}_camera_link'>
-        <pose frame=''>${x} ${y} ${height} 0 ${tilt} ${pan}</pose>
-        <inertial>
-          <mass>0.1</mass>
-          <inertia>
-            <ixx>1</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>1</iyy>
-            <iyz>0</iyz>
-            <izz>1</izz>
-          </inertia>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-        </inertial>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <sensor name='camera' type='depth'>
-          <update_rate>20</update_rate>
-          <camera name='__default__'>
-            <horizontal_fov>1.0472</horizontal_fov>
-            <image>
-              <width>640</width>
-              <height>480</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.05</near>
-              <far>${far_clip}</far>
-            </clip>
-          </camera>
-          <plugin name='camera_plugin' filename='libgazebo_ros_openni_kinect.so'>
-            <baseline>0.2</baseline>
-            <alwaysOn>true</alwaysOn>
-            <updateRate>20.0</updateRate>
-            <cameraName>${descriptor}</cameraName>
-            <imageTopicName>/${descriptor}/rgb/image_raw</imageTopicName>
-            <cameraInfoTopicName>/${descriptor}/depth/camera_info</cameraInfoTopicName>
-            <depthImageTopicName>/${descriptor}/depth/image_raw</depthImageTopicName>
-            <depthImageInfoTopicName>/${descriptor}/depth/camera_info</depthImageInfoTopicName>
-            <pointCloudTopicName>/${descriptor}/depth/points</pointCloudTopicName>
-            <frameName>${descriptor}_link</frameName>
-            <pointCloudCutoff>0.05</pointCloudCutoff>
-            <distortionK1>0</distortionK1>
-            <distortionK2>0</distortionK2>
-            <distortionK3>0</distortionK3>
-            <distortionT1>0</distortionT1>
-            <distortionT2>0</distortionT2>
-            <CxPrime>0</CxPrime>
-            <Cx>0</Cx>
-            <Cy>0</Cy>
-            <focalLength>0</focalLength>
-            <hackBaseline>0</hackBaseline>
-          </plugin>
-          <always_on>1</always_on>
-          <visualize>1</visualize>
-        </sensor>
-        <gravity>1</gravity>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>file://$(arg model_dir)/kinect.dae</uri>
-            </mesh>
-          </geometry>
-          <material>
-            <shader type='pixel'/>
-            <emissive>0 0 0 1</emissive>
-          </material>
-          <pose frame=''>0.035 0 0 0 -0 0</pose>
-          <cast_shadows>1</cast_shadows>
-          <transparency>0</transparency>
-        </visual>
-        <collision name='collision'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose frame=''>0.035 0 0 0 -0 0</pose>
-          <geometry>
-            <box>
-              <size>0.073 0.276 0.072</size>
-            </box>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>1</mu>
-                <mu2>1</mu2>
-                <fdir1>0 0 0</fdir1>
-                <slip1>0</slip1>
-                <slip2>0</slip2>
-              </ode>
-              <torsional>
-                <coefficient>1</coefficient>
-                <patch_radius>0</patch_radius>
-                <surface_radius>0</surface_radius>
-                <use_patch_radius>1</use_patch_radius>
-                <ode>
-                  <slip>0</slip>
-                </ode>
-              </torsional>
-            </friction>
-            <bounce>
-              <restitution_coefficient>0</restitution_coefficient>
-              <threshold>1e+06</threshold>
-            </bounce>
-            <contact>
-              <collide_without_contact>0</collide_without_contact>
-              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>1</collide_bitmask>
-              <ode>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-                <max_vel>0.01</max_vel>
-                <min_depth>0</min_depth>
-              </ode>
-              <bullet>
-                <split_impulse>1</split_impulse>
-                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-              </bullet>
-            </contact>
-          </surface>
-        </collision>
-      </link>
+    <link name='${descriptor}_camera_link'>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.1"/>
+        <inertia
+          ixx="1.0" ixy="0.0" ixz="0.0"
+          iyy="1.0" iyz="0.0"
+          izz="1.0"/>
+      </inertial>
 
-      <link name='${descriptor}_stand_link'>
-        <!-- <pose frame=''>0.05 0 0.25 1e-06 0.002396 -0</pose> -->
-        <pose frame='kinect_link'>${x} ${y} ${stand_height} 0 0 0</pose>
-        <inertial>
-          <mass>1</mass>
-          <inertia>
-            <ixx>0.145833</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.145833</iyy>
-            <iyz>0</iyz>
-            <izz>0.125</izz>
-          </inertia>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-        </inertial>
-        <gravity>1</gravity>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <visual name='visual'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.02</radius>
-              <length>${stand_length}</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <lighting>1</lighting>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Red</name>
-            </script>
-            <ambient>1 0 0 1</ambient>
-            <diffuse>1 0 0 1</diffuse>
-            <specular>0 0 0 0</specular>
-            <emissive>0 0 0 1</emissive>
-            <shader type='vertex'>
-              <normal_map>__default__</normal_map>
-            </shader>
-          </material>
-          <cast_shadows>1</cast_shadows>
-          <transparency>0</transparency>
-        </visual>
-        <collision name='collision'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.02</radius>
-              <length>0.1</length>
-            </cylinder>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>1</mu>
-                <mu2>1</mu2>
-                <fdir1>0 0 0</fdir1>
-                <slip1>0</slip1>
-                <slip2>0</slip2>
-              </ode>
-              <torsional>
-                <coefficient>1</coefficient>
-                <patch_radius>0</patch_radius>
-                <surface_radius>0</surface_radius>
-                <use_patch_radius>1</use_patch_radius>
-                <ode>
-                  <slip>0</slip>
-                </ode>
-              </torsional>
-            </friction>
-            <bounce>
-              <restitution_coefficient>0</restitution_coefficient>
-              <threshold>1e+06</threshold>
-            </bounce>
-            <contact>
-              <collide_without_contact>0</collide_without_contact>
-              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>1</collide_bitmask>
-              <ode>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-                <max_vel>0.01</max_vel>
-                <min_depth>0</min_depth>
-              </ode>
-              <bullet>
-                <split_impulse>1</split_impulse>
-                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
-                <soft_cfm>0</soft_cfm>
-                <soft_erp>0.2</soft_erp>
-                <kp>1e+13</kp>
-                <kd>1</kd>
-              </bullet>
-            </contact>
-          </surface>
-        </collision>
-      </link>
+      <collision>
+        <origin xyz="-0.03 0 -0.016" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.073 0.276 0.072"/>
+        </geometry>
+      </collision>
 
-      <joint name='stand_to_base_joint' type='fixed'>
-        <parent>base_link</parent>
-        <child>${descriptor}_stand_link</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
-
-      <joint name='camera_to_stand_joint' type='fixed'>
-        <parent>${descriptor}_stand_link</parent>
-        <child>${descriptor}_camera_link</child>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-            <suspension>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </suspension>
-          </ode>
-        </physics>
-      </joint>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(arg model_dir)/kinect.dae" />
+        </geometry>
+      </visual>
+    </link>
+    <gazebo reference='${descriptor}_camera_link'>
+      <sensor name='${descriptor}_camera' type='depth'>
+        <pose>10 0 0 0 1.57 1.57</pose>
+        <update_rate>20</update_rate>
+        <camera name='__default__'>
+          <horizontal_fov>1.0472</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>${far_clip}</far>
+          </clip>
+        </camera>
+        <plugin name='${descriptor}_camera_plugin' filename='libgazebo_ros_openni_kinect.so'>
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>20.0</updateRate>
+          <cameraName>${descriptor}</cameraName>
+          <imageTopicName>/${descriptor}/rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>/${descriptor}/depth/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/${descriptor}/depth/image_raw</depthImageTopicName>
+          <depthImageInfoTopicName>/${descriptor}/depth/camera_info</depthImageInfoTopicName>
+          <pointCloudTopicName>/${descriptor}/depth/points</pointCloudTopicName>
+          <frameName>$(arg model_name)/${descriptor}_sensor_link</frameName>
+          <pointCloudCutoff>0.05</pointCloudCutoff>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+        <always_on>1</always_on>
+        <visualize>1</visualize>
+      </sensor>
     </gazebo>
+
+    <link name='${descriptor}_stand_link'>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.1"/>
+        <inertia
+          ixx="1.0" ixy="0.0" ixz="0.0"
+          iyy="1.0" iyz="0.0"
+          izz="1.0"/>
+      </inertial>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.02" length="${stand_length}" />
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.02" length="${stand_length}" />
+        </geometry>
+        <material name="red">
+          <color rgba="1 0 0 1" />
+        </material>
+      </visual>
+    </link>
+    <gazebo reference="${descriptor}_stand_link">
+    	<material value="Gazebo/Red"/>
+    </gazebo>
+
+    <link name='${descriptor}_sensor_link'>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.01"/>
+        <inertia
+          ixx="1.0" ixy="0.0" ixz="0.0"
+          iyy="1.0" iyz="0.0"
+          izz="1.0"/>
+      </inertial>
+    </link>
+
+    <joint name='base_to_stand_joint' type='fixed'>
+      <origin xyz="${x} ${y} ${stand_height}" rpy="0 0 ${pan}" />
+      <parent link="base_link" />
+      <child link="${descriptor}_stand_link" />
+    </joint>
+
+    <joint name='stand_to_camera_joint' type='fixed'>
+      <origin xyz="${x-0.02} ${y} ${(stand_length/2)+0.035}" rpy="0 ${tilt} 0" />
+      <parent link="${descriptor}_stand_link" />
+      <child link="${descriptor}_camera_link" />
+    </joint>
+
+    <joint name='camera_to_sensor_joint' type='fixed'>
+      <origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+      <parent link="${descriptor}_camera_link" />
+      <child link="${descriptor}_sensor_link" />
+    </joint>
+
   </xacro:macro>
 
 </robot>

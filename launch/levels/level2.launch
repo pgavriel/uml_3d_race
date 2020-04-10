@@ -6,7 +6,7 @@
     <!-- Robot spawn position -->
     <arg name="spawn_x" value="0.0" />
     <arg name="spawn_y" value="0.0" />
-    <arg name="spawn_Yaw" value="1.5708" />
+    <arg name="spawn_yaw" value="1.5708" />
   </include>
 
   <!-- Publish the goal for the given .world -->

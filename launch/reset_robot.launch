@@ -1,4 +1,7 @@
 <launch>
+  <!-- Resets a specified robot (model_name) to it's spawn position
+       being published on the [model_name]/spawn topic. Use this instead of
+       relaunching gazebo every time you want to start over. It's faster. -->
 
   <!-- Name of the gazebo model being reset -->
   <arg name="model_name" default="pioneer" />

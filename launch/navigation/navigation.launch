@@ -3,7 +3,7 @@
   <arg name="namespace" default="pioneer" />
   <!-- Map name -->
   <arg name="map" default="level1" />
-  <!-- Initial orientation for AMCL node. -->
+  <!-- Initial orientation for AMCL node. (Should be set to match robot spawn position) -->
   <arg name="init_x" default="0.0" />
 	<arg name="init_y" default="0.0" />
 	<arg name="init_yaw" default="0.0" /> <!-- Degrees (amcl.launch handles conversion) -->

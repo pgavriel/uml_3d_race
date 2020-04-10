@@ -65,7 +65,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Global Costmap
-      Topic: /move_base/global_costmap/costmap
+      Topic: /pioneer_move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -75,7 +75,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Local Costmap
-      Topic: /move_base/local_costmap/costmap
+      Topic: /pioneer_move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -110,7 +110,7 @@ Visualization Manager:
         Shaft Length: 0.25
         Shaft Radius: 0.0500000007
         Value: Arrow
-      Topic: /base_pose_ground_truth
+      Topic: /pioneer/odom
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -222,6 +222,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        hokuyo_rear_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         p3dx_left_hubcap:
           Alpha: 1
           Show Axes: false
@@ -313,25 +318,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 19.7261105
+      Distance: 4.83449268
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.72555614
-        Y: 1.08745849
-        Z: -1.73667979
+        X: 2.15113664
+        Y: 1.02988672
+        Z: -1.8872329
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.12479711
+      Pitch: 0.934797287
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.23536873
+      Yaw: 3.81034684
     Saved: ~
 Window Geometry:
   Displays:

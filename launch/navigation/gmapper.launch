@@ -3,8 +3,8 @@
 
   <arg name="namespace" default="pioneer"/>
 
-  <node name="slam_mapping" pkg="gmapping" type="slam_gmapping" output="screen" ns="$(arg namespace)/">
-      <remap from="scan" to="frontscan_filtered"/>
+  <node name="slam_mapping" pkg="gmapping" type="slam_gmapping" output="screen" >
+      <remap from="scan" to="$(arg namespace)/frontscan_filtered"/>
       <param name="xmin" value="-20.0"/>
       <param name="ymin" value="-20.0"/>
       <param name="xmax" value="20.0"/>

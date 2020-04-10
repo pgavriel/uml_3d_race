@@ -58,8 +58,6 @@
   	  <origin xyz="-0.045 0 0.148" rpy="0 0 0"/>
   	  <geometry>
         <box size="0.42 0.28 0.17"/>
-        <!-- This is the correct bounding box, but x=0.43 crashes Gazebo? -->
-    		<!--box size="0.43 0.28 0.17"/-->
   	  </geometry>
   	</collision>
   </link>

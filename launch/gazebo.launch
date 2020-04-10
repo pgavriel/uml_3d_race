@@ -9,6 +9,7 @@
     <!-- Set .world file -->
     <arg if="$(arg load_world)" name="world_name" value="$(find uml_3d_race)/worlds/$(arg world).world"/>
     <!-- Gazebo Settings -->
+    <arg name="verbose" value="true" />
     <arg name="paused" value="false" />
     <arg name="use_sim_time" value="true" />
     <arg name="gui" value="true" />
