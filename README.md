@@ -1,3 +1,4 @@
+![3D Race Banner](resources/screenshots/repo_banner.png)  
 # ROS 3D RACE  
 
 ## Setup:
@@ -38,13 +39,14 @@ When you feel like you have beaten the current level, shutdown the terminal runn
 
 ## Challenge:  
 Your goal is to use the sensor data being received by the robot to navigate through increasingly complex stages in the fastest time possible.
-Start with level1.launch and work your way up to levelX.launch. Write an algorithm that can find its way through any course!  
+Start with level1.launch and work your way up. Write an algorithm that can find its way through any course!  
 
 ## File Structure:  
 * **launch/** - Contains all necessary ROS .launch files.  
-* **msg/** - Custom ROS message definitions.  
+* **msg/** - Custom ROS message definition.  
 * **resources/** - Package resources.  
   * **config/** - Contains a configuration for a range laser filter.  
+  * **maps/** - Contains maps to be used by map_server for navigation.   
   * **models/** - Contains package models.  
     * **pioneer3dx/** - URDF/xacro definition of our pioneer robot.  
       * **config/** - Contains robot sensor configuration settings.  
@@ -71,22 +73,25 @@ To launch an empty world:
 
 * **spawn_robot.launch** - Assuming Gazebo is already running, this launch file will load the robot_description from a .xacro file, spawn the model into Gazebo with the given model_name and position, create a node to publish the spawn position (for resetting to), and adds a laser filter to remove infinite values from the frontal laser.  
 To spawn a robot with a specified name and/or position:  
-  > roslaunch uml_3d_race spawn_robot.launch model_name:=robotname x:=5.0 y:=5.0 Yaw:=3.14  
+  > roslaunch uml_3d_race spawn_robot.launch model_name:=pioneer x:=5.0 y:=5.0 yaw:=3.14  
 
 * **spawn_world.launch** - This launch file includes both gazebo.launch and spawn_robot.launch in order to load a gazebo world, and spawn a robot within it in just one file. The world file and robot spawn positions are sent to their respective launch files as arguments. You will notice that each levelx.launch file simply includes this launch file and specifies the relevant arguments, making it easy to launch specific configurations. Changing the default values of the arguments in this file is perfectly acceptable, but you can specify them in a command as well.  
 For example:  
-  > roslaunch uml_3d_race spawn_world.launch world:=baby_steps spawn_x:=0.0 spawn_y:=0.0 spawn_Yaw:=0.0  
+  > roslaunch uml_3d_race spawn_world.launch world:=baby_steps spawn_x:=0.0 spawn_y:=0.0 spawn_yaw:=0.0  
 
 * **race.launch** - This launch file simply starts a referee node and a mover node simultaneously. If a goal is specified on the /goal topic, the referee will track the distance of the robot to the goal. The referee starts a timer when the robot starts moving and stops it when you're within a certain proximity to the goal, letting you know how quickly you were able to reach it.  
   > roslaunch uml_3d_race race.launch  
 
 ## Things to Explore:  
+- The launch file structure of this repository   
 - How to create and use your own gazebo world course  
 - How to add more sensors to the robot
-- How to use multiple sensors simultaneously
+- How to use multiple sensors simultaneously   
 - How to use depth camera data  
-- How to create/define your own models   
-- How to use custom textures  
+- How to implement a navigation stack
+- How to tune and configure a navigation stack      
+- How to create/define your own models    
+- How to use custom textures   
 
 ## Useful Resources:  
 [ROS Tutorials](http://wiki.ros.org/ROS/Tutorials)  

@@ -16,6 +16,7 @@ ros::Time start, finish;
 float vel;
 geometry_msgs::Point last_pos;
 
+// Simple distance function
 float distance(float x1, float y1, float x2, float y2){
   float dx = x2 - x1;
   float dy = y2 - y1;
@@ -23,9 +24,14 @@ float distance(float x1, float y1, float x2, float y2){
 }
 
 void odom_callback(const nav_msgs::Odometry& msg){
+  // Odometry Definition: http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html
+
+  // Find robots distance to goal
   float goal_dist = distance(msg.pose.pose.position.x,msg.pose.pose.position.y,goal_x,goal_y);
+  // Set finished to true if the distance is less than the goal tolerance
   bool finished = (goal_dist < goal_tolerance);
 
+  // Check if the robot is "moving" faster than what should be possible
   float odom_dist = distance(msg.pose.pose.position.x,msg.pose.pose.position.y,last_pos.x,last_pos.y);
   bool cheated = (odom_dist > 0.5);
   if(cheated){ state = 1; }
@@ -53,8 +59,12 @@ void odom_callback(const nav_msgs::Odometry& msg){
 }
 
 void vel_callback(const geometry_msgs::Twist& msg){
+  // Twist Definition: http://docs.ros.org/melodic/api/geometry_msgs/html/msg/Twist.html
+
   vel = msg.linear.x;
   //ROS_INFO("VEL: %.3f\tSTATE: %d\t START: %.2f",vel,state,ros::Duration(start).toSec());
+
+  // Start the timer when the robot starts moving
   if(state == -1 && vel > 0.01){
     state = 0;
     start = ros::Time::now();
@@ -69,15 +79,19 @@ void goal_callback(const uml_3d_race::Goal& goal){
 }
 
 int main(int argc, char **argv){
+  // Setup ros node and NodeHandle
   ros::init(argc, argv, "referee");
   ros::NodeHandle n;
 
+  // Setup subscribers to track the robots movement
   ros::Subscriber odom_sub = n.subscribe("/pioneer/odom",1000,odom_callback);
   ros::Subscriber vel_sub = n.subscribe("/pioneer/cmd_vel",1000,vel_callback);
   ros::Subscriber goal_sub = n.subscribe("goal",1000,goal_callback);
 
+  // Set loop rate
   ros::Rate loop_rate(10);
   while(ros::ok()){
+    // Poll subscribers
     ros::spinOnce();
     loop_rate.sleep();
   }

@@ -5,24 +5,30 @@
 
 sensor_msgs::LaserScan scan;
 
-void outputCallback(const sensor_msgs::LaserScan info){
+void scanCallback(const sensor_msgs::LaserScan info){
   // Save scan information
   scan = info;
 }
 
-int main (int argc, char **argv)
-{
+int main (int argc, char **argv){
+// Setup ros node and NodeHandle
 ros::init(argc,argv,"mover_node");
 ros::NodeHandle n;
 
-ros::Subscriber sub = n.subscribe("/pioneer/frontscan_filtered",1000,outputCallback);
+// Setup subscriber to poll the laser scan topic being published by our robot
+ros::Subscriber sub = n.subscribe("/pioneer/frontscan_filtered",1000,scanCallback);
+// Setup publisher object to publish movement commands to our robot
 ros::Publisher twist_pub = n.advertise<geometry_msgs::Twist>("/pioneer/cmd_vel",100);
 
+// Declare working variables
 geometry_msgs::Twist command;
 float speed, angle, left, right, diff, threshold;
 
+// Set loop rate
 ros::Rate loop_rate(20);
+// Main control loop
 while (ros::ok()){
+  // Poll subscribed laser topic
   ros::spinOnce();
 
   if (!scan.ranges.empty()){

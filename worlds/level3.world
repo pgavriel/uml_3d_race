@@ -49,10 +49,10 @@
             </plane>
           </geometry>
           <material>
-          <script>
-            <uri>file://media/materials/scripts/concrete.material</uri>
-            <name>Concrete/1</name>
-          </script>
+            <script>
+              <uri>file://media/materials/scripts/concrete.material</uri>
+              <name>Concrete/1</name>
+            </script>
           </material>
         </visual>
         <self_collide>0</self_collide>
@@ -8387,10 +8387,10 @@
       </link>
     </model>
     <state world_name='default'>
-      <sim_time>983 621000000</sim_time>
-      <real_time>989 558739869</real_time>
-      <wall_time>1585102021 28812528</wall_time>
-      <iterations>983621</iterations>
+      <sim_time>1047 853000000</sim_time>
+      <real_time>64 617681107</real_time>
+      <wall_time>1586728937 760207395</wall_time>
+      <iterations>64232</iterations>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -8508,7 +8508,7 @@
         </link>
       </model>
       <model name='obstacle_squarepillar_medium_0_clone'>
-        <pose frame=''>9.53989 9.48091 0 0 0 -0.433162</pose>
+        <pose frame=''>9.53989 9.4809 0 0 0 -0.43316</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
           <pose frame=''>9.38105 9.55436 0 0 0 -2.00396</pose>
@@ -9924,10 +9924,10 @@
         </link>
       </model>
       <model name='obstacle_wall_short_4'>
-        <pose frame=''>9.47451 -1.64053 0 0 -0 0.391195</pose>
+        <pose frame=''>9.46195 -1.56066 0 0 -0 0.208509</pose>
         <scale>1 1 1</scale>
         <link name='Wall'>
-          <pose frame=''>9.47451 -1.64053 0 0 -0 0.391195</pose>
+          <pose frame=''>9.46195 -1.56066 0 0 -0 0.208509</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -10020,7 +10020,7 @@
         </link>
       </model>
       <model name='room_5x5_right'>
-        <pose frame=''>11.5539 7.5773 0 0 -0 0</pose>
+        <pose frame=''>11.5539 7.57729 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
           <pose frame=''>16.003 7.57686 0 0 0 -1.5708</pose>
@@ -10082,7 +10082,7 @@
         </link>
       </model>
       <model name='track_end_0'>
-        <pose frame=''>0 4 0 0 0 -1.5708</pose>
+        <pose frame=''>1e-06 4 0 0 0 -1.57079</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
           <pose frame=''>-0.065 4.95 0 0 -0 3.14159</pose>
@@ -10104,7 +10104,7 @@
         </link>
       </model>
       <model name='track_straight'>
-        <pose frame=''>11.5484 2.17192 0 0 -0 0</pose>
+        <pose frame=''>11.5484 2.17193 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
           <pose frame=''>10.5934 2.17393 0 0 0 -1.5708</pose>
@@ -10136,7 +10136,7 @@
         </link>
       </model>
       <model name='track_straight_0_clone_0'>
-        <pose frame=''>-1.86828 8.45594 0 0 -0 2.3562</pose>
+        <pose frame=''>-1.86828 8.45595 0 0 -0 2.3562</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
           <pose frame=''>-1.19441 7.77925 0 0 -0 0.785398</pose>
@@ -10152,7 +10152,7 @@
         </link>
       </model>
       <model name='track_straight_0_clone_1'>
-        <pose frame=''>-2.74466 6.33812 0 0 -0 4e-06</pose>
+        <pose frame=''>-2.74466 6.33811 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
           <pose frame=''>-3.69966 6.34011 0 0 0 -1.5708</pose>
@@ -11405,7 +11405,7 @@
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-5.27817 -9.33444 10.2254 0 0.629797 0.876582</pose>
+        <pose frame=''>-4.60003 -5.70127 9.26887 0 0.637797 0.588582</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

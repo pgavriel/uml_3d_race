@@ -5,8 +5,6 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <string>
 
-//Spawn is a custom message type defined in uml_3d_race/msg/Spawn.msg
-#include <uml_3d_race/Spawn.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 bool msg_received = false;
@@ -22,6 +20,7 @@ void spawn_callback(const geometry_msgs::PoseWithCovarianceStamped& spawn){
 }
 
 int main(int argc, char **argv){
+  // Setup ros node and NodeHandle
   ros::init(argc, argv, "robot_reset_node");
   ros::NodeHandle n;
 
