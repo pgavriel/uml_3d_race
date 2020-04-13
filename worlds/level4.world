@@ -1047,10 +1047,10 @@
       </link>
     </model>
     <state world_name='default'>
-      <sim_time>1643 598000000</sim_time>
-      <real_time>112 20998579</real_time>
-      <wall_time>1586733162 528754006</wall_time>
-      <iterations>111199</iterations>
+      <sim_time>1690 929000000</sim_time>
+      <real_time>47 592289058</real_time>
+      <wall_time>1586738679 865452744</wall_time>
+      <iterations>47331</iterations>
       <model name='block_2x4m'>
         <pose frame=''>3 2 0 0 0 -1.5708</pose>
         <scale>1 1 1</scale>
@@ -1102,20 +1102,20 @@
         </link>
       </model>
       <model name='caution_100cm_block'>
-        <pose frame=''>1.66692 4.45805 0 0 -0 0</pose>
+        <pose frame=''>1.66692 3.47808 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='Block'>
-          <pose frame=''>1.66692 4.45805 0 0 -0 0</pose>
+          <pose frame=''>1.66692 3.47808 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='caution_100cm_block_0'>
-        <pose frame=''>4.20775 3.56343 0 0 -0 0</pose>
+        <pose frame=''>4.38063 4.52266 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='Block'>
-          <pose frame=''>4.20775 3.56343 0 0 -0 0</pose>
+          <pose frame=''>4.38063 4.52266 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -1837,7 +1837,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>14.5033 10.3055 19.5849 0 1.06 3.13199</pose>
+        <pose frame=''>12.372 9.90549 16.7669 0 1.108 3.13599</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

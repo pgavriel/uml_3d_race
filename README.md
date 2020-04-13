@@ -25,7 +25,7 @@ At this point, if all goes well, the package should be ready to run.
 
 #### Resetting the robot   
 When things inevitably go wrong, shutdown the terminal running race.launch with 'Ctrl+c', and reset the robots position via:  
-  > rosrun uml_3d_race reset_robot  
+  > roslaunch uml_3d_race reset_robot.launch  
 
 #### Making Changes  
 You may notice that the robot is able to make it to the end of the first level with the code provided, but it will struggle with anything more difficult.  
@@ -64,7 +64,7 @@ Start with level1.launch and work your way up. Write an algorithm that can find 
 * **setup.sh** - A setup script that makes the models and textures provided in this package available for Gazebo to use.  
 
 ## Important Launch Files:    
-* **gazebo.launch** - Launches Gazebo as an empty world or loads a specific world file. This launch file does not include any robots. This file is included in other launch files to reduce their complexity, and it can be useful for creating or modifying world filed.  
+* **gazebo.launch** - Launches Gazebo as an empty world or loads a specific world file. This launch file does not include any robots. This file is included in other launch files to reduce their complexity, and it can be useful for creating or modifying world files.  
 To launch an empty world:  
   > roslaunch uml_3d_race gazebo.launch load_world:=false  
 
@@ -72,7 +72,7 @@ To launch an empty world:
     > roslaunch uml_3d_race gazebo.launch world:=[world filename excluding .world extension]  
 
 * **spawn_robot.launch** - Assuming Gazebo is already running, this launch file will load the robot_description from a .xacro file, spawn the model into Gazebo with the given model_name and position, create a node to publish the spawn position (for resetting to), and adds a laser filter to remove infinite values from the frontal laser.  
-To spawn a robot with a specified name and/or position:  
+To spawn a robot with a specified name and/or position (example):  
   > roslaunch uml_3d_race spawn_robot.launch model_name:=pioneer x:=5.0 y:=5.0 yaw:=3.14  
 
 * **spawn_world.launch** - This launch file includes both gazebo.launch and spawn_robot.launch in order to load a gazebo world, and spawn a robot within it in just one file. The world file and robot spawn positions are sent to their respective launch files as arguments. You will notice that each levelx.launch file simply includes this launch file and specifies the relevant arguments, making it easy to launch specific configurations. Changing the default values of the arguments in this file is perfectly acceptable, but you can specify them in a command as well.  
@@ -99,6 +99,7 @@ For example:
 [ROS .launch file documentation](http://wiki.ros.org/roslaunch/XML)  
 [ROS Navigation](http://wiki.ros.org/navigation)  
 [Navigation Tuning Guide](https://wiki.ros.org/navigation/Tutorials/Navigation%20Tuning%20Guide)    
+[Nav Tuning Guide Paper](http://kaiyuzheng.me/documents/navguide.pdf)   
 
 [URDF Tutorials](http://wiki.ros.org/urdf/Tutorials)   
 [URDF XML Specification](https://wiki.ros.org/urdf/XML)   

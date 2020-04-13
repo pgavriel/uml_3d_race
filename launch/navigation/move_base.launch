@@ -13,6 +13,6 @@
     <rosparam file="$(find uml_3d_race)/resources/config/navigation/$(arg config)/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find uml_3d_race)/resources/config/navigation/$(arg config)/base_local_planner_params.yaml" command="load" />
     <param name="conservative_reset_dist" type="double" value="3.0" />
-    <param name="controller_frequency" type="double" value="20.0" />
+    <param name="controller_frequency" type="double" value="15.0" />
   </node>
 </launch>

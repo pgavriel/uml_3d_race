@@ -37,14 +37,14 @@
   <!-- ROBOT DESCRIPTION - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <!-- Chassis description -->
   <link name="base_link">
-  	<!-- CHECK THESE VALUES. THEY MAY BE COMPLETELY WRONG. -->
-  	<inertial>
+    <!-- Inertial base_link property moved to weight_link below -->
+  	<!-- CHECK THESE VALUES. THEY MAY BE WRONG. -->
+  	<!-- <inertial>
   	  <mass value="20.0"/>
   	  <origin xyz="-0.045 0 0.148"/>
   	  <inertia ixx="0.3338" ixy="0.0" ixz="0.0"
   			       iyy="0.4783" iyz="0.0" izz="0.3338"/>
-  	</inertial>
-  	<!-- The base visual is fine. Just the inertial is questionable.-->
+  	</inertial> -->
   	<visual>
   	  <origin xyz="-0.045 0 0.148" rpy="0 0 0"/>
   	  <geometry name="pioneer_geom">
@@ -64,6 +64,23 @@
   <gazebo reference="base_link">
   	<material value="Gazebo/Red"/>
   </gazebo>
+
+  <!-- In verbose mode, gazebo complains that KDL does not support a base_link with interia
+       so this is a dummy link with the intertial attached to base_link -->
+  <link name="weight_link">
+    <!-- CHECK THESE VALUES. THEY MAY BE WRONG. -->
+    <inertial>
+      <mass value="20.0"/>
+      <origin xyz="-0.045 0 0.148"/>
+      <inertia ixx="0.3338" ixy="0.0" ixz="0.0"
+               iyy="0.4783" iyz="0.0" izz="0.3338"/>
+    </inertial>
+  </link>
+  <joint name="weight_joint" type="fixed">
+    <origin xyz="-0.04 0 -0.02" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="weight_link"/>
+  </joint>
 
   <link name="top_plate">
   	<inertial>

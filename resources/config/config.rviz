@@ -252,6 +252,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        weight_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: pioneer
@@ -313,7 +317,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 8.6762886
+      Distance: 19.1805115
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
