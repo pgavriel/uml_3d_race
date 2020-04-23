@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<robot name="obstacle_bot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="robot_height" value="1.0" />
+  <xacro:property name="robot_radius" value="0.25" />
+  <xacro:property name="antenna_len" value="0.2" />
+
+  <xacro:property name="robot_height" value="$(arg height)" />
+  <xacro:property name="robot_radius" value="$(arg radius)" />
+
+  <!-- root link, on the ground just below the model origin -->
+  <link name="base_footprint">
+   <origin xyz="0 0 0" rpy="0 0 0" />
+   <visual>
+      <origin xyz="0 0 ${robot_height+(antenna_len/2)}" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.01" length="${antenna_len}" />
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+  </link>
+  <gazebo reference="base_footprint">
+    <material value="Gazebo/Grey"/>
+  </gazebo>
+
+  <!-- the model -->
+  <link name="base_link">
+    <inertial>
+      <mass value="50" />
+      <!-- SUBTERRANIAN MASS -->
+      <origin xyz="0 0 -${(robot_height/2)+0.05}" />
+      <inertia ixx="50.0" ixy="0.0" ixz="0.0"
+               iyy="50.0" iyz="0.0"
+               izz="50.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+      <geometry>
+        <cylinder radius="${robot_radius}" length="${robot_height}" />
+      </geometry>
+      <material name="Orange">
+        <color rgba="1 0.64 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder radius="${robot_radius}" length="${robot_height}" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_link">
+    <visual>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/caution.material</uri>
+          <name>Caution/Orange4</name>
+        </script>
+        <ambient>1 1 1 1</ambient>
+      </material>
+  </visual>
+  </gazebo>
+
+  <link name="antenna_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <visual>
+      <geometry>
+        <sphere radius="0.02" />
+      </geometry>
+      <material name="Red">
+        <color rgba="0.8 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <sphere radius="0.02" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="antenna_link">
+    <material value="Gazebo/Red"/>
+  </gazebo>
+
+  <link name="directional_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.05" />
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="directional_link">
+    <material value="Gazebo/Grey"/>
+  </gazebo>
+
+  <link name="scan_link">
+    <visual>
+      <geometry>
+        <sphere radius="0.002" />
+      </geometry>
+      <material name="BlackFaded">
+        <color rgba="0 0 0 0.25" />
+      </material>
+    </visual>
+  </link>
+  <gazebo reference="scan_link">
+    <material value="Gazebo/Black"/>
+    <sensor name='$(arg model_name)_laser' type='ray'>
+      <pose frame=''>0 0 0 0 0 0</pose>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>220</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.91986</min_angle>
+            <max_angle>1.91986</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>1</samples>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.08</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name='$(arg model_name)_laser' filename='libgazebo_ros_laser.so'>
+        <!-- model_name is an argument sent to the top level xml file (when setting robot_description) -->
+        <topicName>$(arg model_name)/scan</topicName>
+        <frameName>$(arg model_name)/scan_link</frameName>
+      </plugin>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>0</visualize>
+    </sensor>
+  </gazebo>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 0 ${robot_height/2}" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+  </joint>
+
+  <joint name="antenna_link_joint" type="fixed">
+    <origin xyz="0 0 ${robot_height+antenna_len}" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="antenna_link" />
+  </joint>
+
+  <joint name="directional_link_joint" type="fixed">
+    <origin xyz="${robot_radius-0.01} 0 -${3*(robot_height/8)}" rpy="0 0 0.785398" />
+    <parent link="base_link"/>
+    <child link="directional_link" />
+  </joint>
+
+  <joint name="scan_link_joint" type="fixed">
+    <origin xyz="0.04 -0.04 0" rpy="0 0 -0.785398" />
+    <parent link="directional_link"/>
+    <child link="scan_link" />
+  </joint>
+
+
+  <gazebo>
+    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+      <commandTopic>$(arg model_name)/cmd_vel</commandTopic>
+      <odometryTopic>$(arg model_name)/odom</odometryTopic>
+      <odometryFrame>$(arg model_name)/odom</odometryFrame>
+      <odometryRate>20.0</odometryRate>
+      <robotBaseFrame>$(arg model_name)/base_footprint</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+</robot>

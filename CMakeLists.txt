@@ -140,6 +140,7 @@ include_directories(
  add_executable(goal_publisher src/goal_pub.cpp)
  add_executable(spawn_publisher src/spawn_pub.cpp)
  add_executable(reset_robot src/reset_robot.cpp)
+ add_executable(obstacle_bot_node src/obstacle_bot.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -165,6 +166,9 @@ include_directories(
   ${catkin_LIBRARIES}
 )
  target_link_libraries(reset_robot
+   ${catkin_LIBRARIES}
+ )
+ target_link_libraries(obstacle_bot_node
    ${catkin_LIBRARIES}
  )
 

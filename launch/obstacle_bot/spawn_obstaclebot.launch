@@ -1,0 +1,50 @@
+<!-- Assumes Gazebo is running  -->
+<launch>
+  <!-- Spawn Position Settings -->
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.0" />
+  <arg name="yaw" default="0.0" /> <!-- Rotation in radians. -->
+
+  <!-- Model Description Settings -->
+  <!-- model_name determines the topics to be published, and serves as a unique identifier for Gazebo -->
+  <arg name="model_name" default="obs_bot" />
+  <arg name="height" default="1.0" />
+  <arg name="radius" default="0.25"/>
+  <arg name="model_file" default="$(find uml_3d_race)/resources/models/obstacle_bot/obstacle_bot.xacro" />
+
+  <!-- Controller Node Settings -->
+  <arg name="max_speed" default="1.0" />
+  <arg name="max_angle" default="1.0" />
+
+  <!-- Load robot_description parameter from obstacle_bot.xacro file -->
+  <!-- Also send arguments to help us generate the model -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model_file)
+    model_name:=$(arg model_name)
+    height:=$(arg height)
+    radius:=$(arg radius)" />
+
+  <!-- publish TFs for static/fixed links (based on the robot_description parameter) -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg model_name)_state_publisher" output="screen">
+    <remap from="joint_states" to="$(arg model_name)/joint_states" />
+    <param name="publish_frequency" type="double" value="30.0"/>
+    <param name="tf_prefix" type="string" value="$(arg model_name)"/>
+  </node>
+
+  <!-- Spawn robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="
+    -urdf
+    -model $(arg model_name)
+    -param /robot_description
+    -x $(arg x)
+    -y $(arg y)
+    -z $(arg z)
+    -Y $(arg yaw)"/>
+
+  <node name="$(arg model_name)_node" pkg="uml_3d_race" type="obstacle_bot_node" output="screen">
+    <param name="model_name" value="$(arg model_name)" />
+    <param name="max_speed" value="$(arg max_speed)" />
+    <param name="max_angle" value="$(arg max_angle)" />
+  </node>
+
+</launch>
