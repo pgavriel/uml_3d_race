@@ -35,7 +35,7 @@ After making changes and rebuilding, see if things work as you intended by launc
 
 #### Making Progress  
 When you feel like you have beaten the current level, shutdown the terminal running gazebo with 'Ctrl+c', and try the loading the next world via:  
-  >roslaunch uml_3d_race level<X>.launch  
+  >roslaunch uml_3d_race levelX.launch  
 
 ## Challenge:  
 Your goal is to use the sensor data being received by the robot to navigate through increasingly complex stages in the fastest time possible.
